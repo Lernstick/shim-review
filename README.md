@@ -48,14 +48,16 @@ Who is the primary contact for security updates, etc.
 - Position: Lernstick Unit Manager
 - Email address: ronny.standtke@inf.unibe.ch
 - PGP key, signed by the other security contacts, and preferably also with signatures that are reasonably well known in the Linux community:
+	- see file ronny.asc
 
 -------------------------------------------------------------------------------
 Who is the secondary contact for security updates, etc.
 -------------------------------------------------------------------------------
 - Name: Roman Gruber
 - Position: Main Developer for the Lernstick Exam
-- Email address: roman.gruber@inf.unibe.ch
+- Email address: p1020389@yahoo.com
 - PGP key, signed by the other security contacts, and preferably also with signatures that are reasonably well known in the Linux community:
+	- see file roman.asc
 
 -------------------------------------------------------------------------------
 Please create your shim binaries starting with the 15.4 shim release tar file:
@@ -188,4 +190,4 @@ Add any additional information you think we may need to validate this shim
 -------------------------------------------------------------------------------
 * This is our first submission.
 * We (Research Center for Digital Sustainability) will be moving from Bern
-  University to Bern University of Applied Sciences later this year.
+  University to Bern University of Applied Sciences (BFH) later this year.
