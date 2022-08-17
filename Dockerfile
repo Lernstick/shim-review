@@ -9,7 +9,7 @@ COPY shimx64.efi /
 
 RUN git clone https://github.com/Lernstick/shim
 WORKDIR /shim 
-RUN git checkout 15.4-6-lernstick
+RUN git checkout 15.6-1-lernstick
 RUN apt-get build-dep -y .
 RUN gbp buildpackage -us -uc --git-ignore-branch
 
