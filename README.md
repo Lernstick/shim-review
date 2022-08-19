@@ -241,8 +241,8 @@ grub2:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 grub,2,Free Software Foundation,grub,2.06,https://www.gnu.org/software/grub/
-grub.debian,1,Debian,grub2,2.06-4+lernstick.1,https://tracker.debian.org/pkg/grub2
-grub.lernstick,1,Debian,grub2,2.06-4+lernstick.1,https://github.com/Lernstick/grub
+grub.debian,1,Debian,grub2,2.06-3+lernstick.1,https://tracker.debian.org/pkg/grub2
+grub.lernstick,1,Debian,grub2,2.06-3+lernstick.1,https://github.com/Lernstick/grub
 ```
 
 shim:
@@ -265,7 +265,7 @@ all_video boot btrfs cat chain configfile cpuid cryptodisk echo efifwsetup efine
 -------------------------------------------------------------------------------
 ### What is the origin and full version number of your bootloader (GRUB or other)?
 -------------------------------------------------------------------------------
-Our GRUB2 is based on the 2.06-4 version from Debian which is based on the 2.06
+Our GRUB2 is based on the 2.06-3 version from Debian which is based on the 2.06
 upstream version. We do not apply any patches to the GRUB2 sources on top.
 
 Source can be found here: https://github.com/Lernstick/grub
