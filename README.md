@@ -276,7 +276,7 @@ Versions of the specific packages can be found in the build log.
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 *******************************************************************************
 
-`shim_15.8-1+lernstick.1_amd64.build`
+`shim_15.8-1+lernstick.2_amd64.build`
 
 *******************************************************************************
 ### What changes were made in the distro's secure boot chain since your SHIM was last signed?
@@ -297,7 +297,7 @@ Skip this, if this is your first application for having shim signed.
 *******************************************************************************
 
 ```
-1043721c968fd18578ab8b66a022e0c105cdd8c0a700bb5b2d94cd7981dd997f  shimx64.efi
+6544e9cee3a3308c9090875a8edb40be648b222db7c17f09ab4801c5b4ef5268  shimx64.efi
 ```
 
 *******************************************************************************
