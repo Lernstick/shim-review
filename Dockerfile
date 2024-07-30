@@ -15,7 +15,7 @@ RUN sha256sum -c < SHA256SUM
 RUN mv shim-15.8.tar.bz2 shim_15.8.orig.tar.bz2
 RUN git clone https://github.com/Lernstick/shim
 WORKDIR /shim
-RUN git checkout lernstick_15.8-1-lernstick
+RUN git checkout lernstick_15.8-2-lernstick
 RUN apt-get build-dep -y .
 RUN dpkg-buildpackage -us -uc
 WORKDIR /
