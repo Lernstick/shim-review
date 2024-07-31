@@ -115,7 +115,7 @@ We include the same patches as Debian. See `debian/patches` in the shim repo:
 
 - `0002-sbat-Also-bump-latest-for-grub-4-and-to-todays-date.patch` Patch straight from upstream to bump SBAT for grub
 
-In our shim build, we set SBAT_AUTOMATIC_DATE=2024010900 to revoke older grub builds by default.
+In our shim build, we set SBAT_AUTOMATIC_DATE=2023012900 to revoke older grub builds by default, which differs to Debian's setting which is set to 2024010900.
 
 
 *******************************************************************************
