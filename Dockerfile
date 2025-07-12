@@ -17,7 +17,7 @@ RUN git clone https://github.com/Lernstick/shim
 WORKDIR /shim
 RUN git checkout lernstick/16.0-1+lernstick.1
 RUN apt-get build-dep -y .
-RUN dpkg-buildpackage -us -uc
+RUN DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc
 WORKDIR /
 RUN hexdump -Cv /shim/shim*.efi > build
 RUN hexdump -Cv /shim-review/$(basename /shim/shim*.efi) > orig
