@@ -15,6 +15,10 @@ Note that we really only have experience with using GRUB2 or systemd-boot on Lin
 asking us to endorse anything else for signing is going to require some convincing on
 your part.
 
+As of 20 October 2025, shims sent to Microsoft will be signed with the 2011 and 2023 keys. For each shim you submit, you will receive two copies back, each signed by a different key. Here is the latest information from Microsoft: https://techcommunity.microsoft.com/blog/hardware-dev-center/signing-with-the-new-2023-microsoft-uefi-certificates-what-submitters-need-to-kn/4455787
+
+New signing requirements have also taken effect, and are available here: https://techcommunity.microsoft.com/blog/hardware-dev-center/updated-microsoft-uefi-signing-requirements/1062916 Please note that undergoing this shim review exempts you from yearly security audits, as long as your shim only hands off to open source boot loaders.
+
 Hint: check the [docs](./docs/) directory in this repo for guidance on submission and getting your shim signed.
 
 Here's the template:
@@ -26,8 +30,7 @@ Here's the template:
 ---
 
 Organization name and website:  
-Lernstick Team (https://lernstick.ch) part of Bern University of Applied
-Sciences (BFH)
+Lernstick Team (https://lernstick.ch) part of Bern University of Applied Sciences (BFH)
 
 ---
 
@@ -41,7 +44,7 @@ Provide the information, which can prove the genuineness with certainty.
 Company/tax register entries or equivalent:  
 (a link to the organization entry in your jurisdiction's register will do)
 
-[your text here]
+https://www.uid.admin.ch/Detail.aspx?uid_id=CHE-319.685.045
 
 The public details of both your organization and the issuer in the EV certificate used for signing .cab files at Microsoft Hardware Dev Center File Signing Services.  
 (**not** the CA certificate embedded in your shim binary)
@@ -53,7 +56,8 @@ Issuer: O=MyIssuer, Ltd., CN=MyIssuer EV Code Signing CA
 Subject: C=XX, O=MyCompany, Inc., CN=MyCompany, Inc.
 ```
 
-[your text here]
+Issuer: C=US, ST=Texas, L=Houston, O=SSL Corp, CN=SSL.com EV Code Signing Intermediate CA RSA R3
+Subject: C=CH, ST=Bern, L=Bern, O=Bern University of Applied Sciences, OU=Business School, Institute for Public Sector Transformation, serialNumber=Government Entity, CN=Bern University of Applied Sciences, businessCategory=Government Entity, jurisdictionST=Bern, jurisdictionC=CH
 
 ---
 
@@ -123,26 +127,25 @@ well known in the Linux community.)
 
 ---
 
-### Were these binaries created from the 16.0 shim release tar?
+### Were these binaries created from the 16.1 shim release tar?
 
-Please create your shim binaries starting with the 16.0 shim release tar file: https://github.com/rhboot/shim/releases/download/16.0/shim-16.0.tar.bz2
+Please create your shim binaries starting with the 16.1 shim release tar file: https://github.com/rhboot/shim/releases/download/16.1/shim-16.1.tar.bz2
 
-This matches https://github.com/rhboot/shim/releases/tag/16.0 and contains the appropriate gnu-efi source.
+This matches https://github.com/rhboot/shim/releases/tag/16.1 and contains the appropriate gnu-efi source.
 
 Make sure the tarball is correct by verifying your download's checksum with the following ones:
 
 ```
-7b518edd63eb840081912f095ed1487a  shim-16.0.tar.bz2
-c2453b9b3c02bc01eea248e9cf634a179ff8828c  shim-16.0.tar.bz2
-d503f778dc75895d3130da07e2ff23d2393862f95b6cd3d24b10cbd4af847217  shim-16.0.tar.bz2
-b4367f3b1e0716d093f4230902e392d3228bd346e2e07a9377c498d8b3b08a5c0ad25c31aa03af66f54648618074a29b55a3e51925e5cfe5c7ac97257bd25880  shim-16.0.tar.bz2
+46319cd228d8f2c06c744241c0f342412329a7c630436fce7f82cf6936b1d603  shim-16.1.tar.bz2
+ca5f80e82f3b80b622028f03ef23105c98ee1b6a25f52a59c823080a3202dd4b9962266489296e99f955eb92e36ce13e0b1d57f688350006bba45f2718f159fb  shim-16.1.tar.bz2
+
 ```
 
 Make sure that you've verified that your build process uses that file
 as a source of truth (excluding external patches) and its checksum
 matches. You can also further validate the release by checking the PGP
 signature: there's [a detached
-signature](https://github.com/rhboot/shim/releases/download/16.0/shim-16.0.tar.bz2.asc)
+signature](https://github.com/rhboot/shim/releases/download/16.1/shim-16.1.tar.bz2.asc)
 
 The release is signed by the maintainer Peter Jones - his master key
 has the fingerprint `B00B48BC731AA8840FED9FB0EED266B70F4FEF10` and the
@@ -158,7 +161,7 @@ A short guide on verifying public keys and signatures should be available in the
 
 ---
 
-Yes. We are using the Debian package as the base, but already updated to 16.0.
+Yes. We are using the Debian package as the base.
 
 ---
 
@@ -170,7 +173,7 @@ You can also point to your custom git servers, where the code is hosted.
 
 ---
 
-https://github.com/Lernstick/shim/tree/lernstick/16.0-1%2Blernstick.1
+https://github.com/Lernstick/shim/tree/lernstick/16.1-1%2Blernstick.1
 
 ---
 
@@ -180,7 +183,9 @@ Mention all the external patches and build process modifications, which are used
 
 ---
 
-None
+Not available
+
+In our shim build, we set SBAT_AUTOMATIC_DATE=2024010900 to revoke older grub builds by default, same as Debian's setting.
 
 ---
 
@@ -246,6 +251,29 @@ We are using the downstream GRUB2 from Debian.
   - Details: https://lists.gnu.org/archive/html/grub-devel/2023-10/msg00028.html, SBAT increase to 4
   - CVE-2023-4693
   - CVE-2023-4692
+- February 2025
+  - Details: https://lists.gnu.org/archive/html/grub-devel/2025-02/msg00024.html, SBAT increase to 5
+  - CVE-2024-45774
+  - CVE-2024-45775
+  - CVE-2024-45776
+  - CVE-2024-45777
+  - CVE-2024-45778
+  - CVE-2024-45779
+  - CVE-2024-45780
+  - CVE-2024-45781
+  - CVE-2024-45782
+  - CVE-2024-45783
+  - CVE-2025-0622
+  - CVE-2025-0624
+  - CVE-2025-0677
+  - CVE-2025-0678
+  - CVE-2025-0684
+  - CVE-2025-0685
+  - CVE-2025-0686
+  - CVE-2025-0689
+  - CVE-2025-0690
+  - CVE-2025-1118
+  - CVE-2025-1125
 
 ---
 
@@ -253,14 +281,14 @@ Yes, all those are patched. CVE-2020-15705 did not affect the Debian version of 
 
 ---
 
-### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
+### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 5?
 
 Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:  
-`grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
+`grub,5,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
 
 ---
 
-Yes, our GRUB2 upstream SBAT level is set to 5 (as we included the 2025 january CVE patches)
+Yes, our GRUB2 upstream SBAT level is set to 5 (as we included the 2025 February CVE patches)
 
 ---
 
@@ -295,13 +323,11 @@ If you are shipping an older kernel, double-check your sources; maybe you do not
 
 ---
 
-All our new released kernel versions include all those patches and kgdb is not enabled in any of our kernels.
+All of our new released kernel versions include those patches and kgdb is not enabled in any of our kernels.
 
 ---
 
-### How does your signed kernel enforce lockdown when your system runs
-
-### with Secure Boot enabled?
+### How does your signed kernel enforce lockdown when your system runs with Secure Boot enabled?
 
 Hint: If it does not, we are not likely to sign your shim.
 
@@ -382,7 +408,8 @@ If your shim binaries can't be reproduced using the provided Dockerfile, please 
 The easiest way to reproduce this build is with the supplied Dockerfile:
 
 ```
-docker build . --no-cache
+docker buildx create --use
+docker buildx build --platform=linux/amd64,linux/arm64 .  --no-cache --progress plain
 ```
 
 Versions of the specific packages can be found in the build log.
@@ -395,7 +422,8 @@ This should include logs for creating the buildroots, applying patches, doing th
 
 ---
 
-`shim_16.0-1+lernstick.1_amd64.build`
+`shim_16.1-1+lernstick.1_amd64.build`
+`shim_16.1-1+lernstick.1_arm64.build`
 
 ---
 
@@ -407,7 +435,7 @@ Skip this, if this is your first application for having shim signed.
 
 ---
 
-- We move from Shim 15.8 to 16.0 including revocations for older GRUB2 versions.
+- We move from Shim 15.8 to 16.1 including revocations for older GRUB2 versions.
 - We updated the minor version of GRUB2
 
 ---
@@ -417,7 +445,8 @@ Skip this, if this is your first application for having shim signed.
 ---
 
 ```
-869a4b3521e5e803b8286987cad6a88c96701a47c342b46a6003d3f5235e3c9a  shimx64.efi
+688821ebd9bc5d6b3ad0ffd56b13ac0cfa54794668e4dd123b4ffff16a046c52  shimx64.efi
+10c2d877396da39cbb850b9a550eeccbec8fccce08513f0688eb0aaf392b340e  shimaa64.efi
 ```
 
 ---
@@ -475,7 +504,7 @@ If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debia
 
 **Remember to post the entries of all the binaries. Apart from your bootloader, you may also be shipping e.g. a firmware updater, which will also have these.**
 
-Hint: run `objcopy --only-section .sbat -O binary YOUR_EFI_BINARY /dev/stdout` to get these entries. Paste them here. Preferably surround each listing with three backticks (\`\`\`), so they render well.
+Hint: run `objcopy --dump-section .sbat=/dev/stdout YOUR_EFI_BINARY` to get these entries. Paste them here. Preferably surround each listing with three backticks (\`\`\`), so they render well.
 
 ---
 
@@ -484,7 +513,7 @@ Shim:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 shim,4,UEFI shim,shim,1,https://github.com/rhboot/shim
-shim.lernstick,1,Lerntsick,shim,16.0,https://github.com/Lernstick/shim
+shim.lernstick,1,Lernstick,shim,16.1,https://github.com/Lernstick/shim
 ```
 
 GRUB2:
@@ -553,7 +582,7 @@ Hint: The most common case here will be a firmware updater like fwupd.
 
 ---
 
-We only launch GRUB2 and the Linux kernel.
+We only launch GRUB2 and the Linux kernel. For future releases we think about setting up fwupd.
 
 ---
 
@@ -590,8 +619,8 @@ No. The Shim only launches GRUB2 which only launches signed kernels in Secure Bo
 
 ---
 
-We are tracking the Debian bookworm-backports.
-Version used in the current release 6.12.9, next one is likely 6.12.31.
+We are tracking the Debian trixie-backports.
+Version used in the current release 6.17.8, next one is likely 6.18.5.
 
 We include the Debian lockdown patches.
 
@@ -616,4 +645,4 @@ For newcomers, the applications labeled as [_easy to review_](https://github.com
 ---
 
 - At the moment we are not planning on providing UKIs, signing fwupd or systemd-boot
-- Our shim packaging currently diverges from the Debian one, as we already moved to shim version 16.0
+- Our shim packaging currently diverges from the Debian one, as we already moved to shim version 16.1
